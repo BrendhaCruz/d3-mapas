@@ -40,11 +40,11 @@ var path = d3.geoPath();
 
 // a escala de cores
 var color = d3.scaleThreshold()
-      .domain(d3.range(0, 81, 20))
-      .range(d3.schemeYlGnBu[5]);
+      .domain([-20, -15, -10, -5, 0, 5, 15, 30, 60])
+      .range(d3.schemePRGn[9]);
 
 // função aux definida em legenda-d3-cor.js
-desenhaLegenda(0, 81, color, "Aprendizado adequado (%)")
+desenhaLegenda(-25, 25, color, "Crescimento entre 2011 e 2013 (pp*) (%)")
 
 d3.queue()
     .defer(d3.json, "geo4-municipios-e-aprendizado-simplificado.json")
@@ -61,7 +61,7 @@ function ready(error, dados) {
     .data(cidades)
     .enter()
     .append("path")
-      .attr("fill", d => {valor = d.properties["Percentual Aprendizado Adequado (%)"]; return valor === "NA" ? '#e0e0eb' : color(valor)})
+      .attr("fill", d => {valor = d.properties["Crescimento entre 2011 e 2013 (pp*)"]; return valor === "NA" ? '#e0e0eb' : color(valor)})
       .attr("d", path)
       .on("mouseover",showTooltip)
       .on("mousemove",moveTooltip)
@@ -95,7 +95,7 @@ function showTooltip(d) {
   moveTooltip();
 
   tooltip.style("display","block")
-      .text(d.properties.Cidade + ": " + d.properties["Percentual Aprendizado Adequado (%)"] + "%");
+  .text(d.properties.Cidade + ": " + d.properties["Crescimento entre 2011 e 2013 (pp*)"] + "%");
 }
 
 //Move the tooltip to track the mouse

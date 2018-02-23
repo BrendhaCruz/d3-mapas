@@ -18,4 +18,4 @@
 #instala o d3 cores
 #npm install d3-scale-chromatic
 
-./node_modules/.bin/topo2geo tracts=- < pb-quantized-topo.json | ./node_modules/.bin/ndjson-map -r d3 -r d3=d3-scale-chromatic 'z = d3.scaleThreshold().domain([0, 1, 2, 4, 8, 10, 11]).range(d3.schemeReds[5]), d.features.forEach(f => f.properties.fill = z(f.properties.registro)), d' | ./node_modules/.bin/ndjson-split 'd.features' | ./node_modules/.bin/geo2svg -n --stroke none -w 1000 -h 600 > pb-tracts-threshold-light3.svg
+./node_modules/.bin/topo2geo tracts=- < pb-quantized-topo.json | ./node_modules/.bin/ndjson-map -r d3 'z = d3.scaleSequential(d3.interpolateViridis).domain([0, 12]), d.features.forEach(f => f.properties.fill = z(f.properties.registro)), d' | ./node_modules/.bin/ndjson-split 'd.features' | ./node_modules/.bin/geo2svg -n --stroke none -w 1000 -h 600 > pb-tracts-threshold-light7.svg
